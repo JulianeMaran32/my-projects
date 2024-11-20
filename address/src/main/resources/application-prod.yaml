@@ -1,8 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/address_db
-    username: local_user
-    password: local_password
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
