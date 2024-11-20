@@ -1,4 +1,4 @@
-package br.com.juhmaran.address.dtos;
+package br.com.juhmaran.address.domain.dtos.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,13 +12,12 @@ import lombok.Setter;
 public class AddressResponse {
 
     private Long id;
+    private String zipCode;
     private String street;
-    private String number;
     private String complement;
+    private String unit;
     private String neighborhood;
     private String city;
+    private String stateAbbreviation;
     private String state;
-    private String country;
-    private String zipCode;
-
 }

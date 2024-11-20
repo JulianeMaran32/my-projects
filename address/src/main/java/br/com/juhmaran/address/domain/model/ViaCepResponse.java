@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressModel {
+public class ViaCepResponse {
 
     @Pattern(regexp = "^\\d{8}$", message = "CEP inválido")
     private String cep;
