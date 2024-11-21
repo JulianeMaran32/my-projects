@@ -1,0 +1,176 @@
+{
+	"id": "e0b3d97c-8ac1-40f1-98dc-2dda761eafb8",
+	"name": "REST API Address",
+	"timestamp": "2024-11-21T00:03:06.164Z",
+	"collection_id": "13771815-75ea3ce7-675f-4f84-8e86-d8230bf0faab",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 0,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2024-11-21T00:03:02.935Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "52aeaa13-740c-4daf-a22a-52cd63d33c1e",
+			"name": "Buscar endereço por CEP",
+			"url": "http://localhost:8081/api/v1/address/cep/123456789",
+			"time": 1024,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				1024
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "09704b79-688c-46ac-9254-8c28cc1fa4e9",
+			"name": "Listar endereços",
+			"url": "http://localhost:8081/api/v1/address",
+			"time": 21,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				21
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "cd3ef5eb-32ec-461d-b481-f65fdc25a286",
+			"name": "Buscar endereço por ID",
+			"url": "http://localhost:8081/api/v1/address/3",
+			"time": 12,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				12
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "eb6ab913-d7ae-4942-805c-0cdd2cc87b94",
+			"name": "Excluir endereço por ID",
+			"url": "http://localhost:8081/api/v1/address/5",
+			"time": 13,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				13
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "8eb59e2b-7314-4d9b-be04-16b359ff87ce",
+			"name": "Atualizar endereço por ID",
+			"url": "http://localhost:8081/api/v1/address/2",
+			"time": 97,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				97
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "7e371232-cf28-42f5-9959-6d57b6b161be",
+			"name": "Cadastrar endereço",
+			"url": "http://localhost:8081/api/v1/address",
+			"time": 532,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				532
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "0ee8c298-5b83-4c6b-be62-9207a3de4a65",
+			"name": "Buscar endereço por CEP e salvar",
+			"url": "http://localhost:8081/api/v1/address/cep/save/80320c090",
+			"time": 523,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				523
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 2222,
+	"collection": {
+		"requests": [
+			{
+				"id": "52aeaa13-740c-4daf-a22a-52cd63d33c1e",
+				"method": "GET"
+			},
+			{
+				"id": "09704b79-688c-46ac-9254-8c28cc1fa4e9",
+				"method": "GET"
+			},
+			{
+				"id": "cd3ef5eb-32ec-461d-b481-f65fdc25a286",
+				"method": "GET"
+			},
+			{
+				"id": "eb6ab913-d7ae-4942-805c-0cdd2cc87b94",
+				"method": "DELETE"
+			},
+			{
+				"id": "8eb59e2b-7314-4d9b-be04-16b359ff87ce",
+				"method": "PUT"
+			},
+			{
+				"id": "7e371232-cf28-42f5-9959-6d57b6b161be",
+				"method": "POST"
+			},
+			{
+				"id": "0ee8c298-5b83-4c6b-be62-9207a3de4a65",
+				"method": "GET"
+			}
+		]
+	}
+}

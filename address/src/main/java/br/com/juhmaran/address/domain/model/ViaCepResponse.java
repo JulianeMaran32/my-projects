@@ -1,5 +1,6 @@
 package br.com.juhmaran.address.domain.model;
 
+import br.com.juhmaran.address.validators.ValidCep;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ViaCepResponse {
 
-    @Pattern(regexp = "^\\d{8}$", message = "CEP inválido")
+    @ValidCep
     private String cep;
 
     private String logradouro;
