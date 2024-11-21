@@ -169,7 +169,7 @@ public class GlobalExceptionHandler {
         var errorResponse = ErrorResponse.builder()
                 .code(HttpStatus.BAD_REQUEST.value())
                 .status(HttpStatus.BAD_REQUEST.getReasonPhrase())
-                .message(ErrorMessages.BAD_REQUEST.getMessage())
+                .message(ex.getMessage())
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
@@ -202,7 +202,7 @@ public class GlobalExceptionHandler {
         var errorResponse = ErrorResponse.builder()
                 .code(HttpStatus.NOT_FOUND.value())
                 .status(HttpStatus.NOT_FOUND.getReasonPhrase())
-                .message(ErrorMessages.RESOURCE_NOT_FOUND.getMessage())
+                .message(ex.getMessage())
                 .build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
@@ -213,7 +213,7 @@ public class GlobalExceptionHandler {
         var errorResponse = ErrorResponse.builder()
                 .code(HttpStatus.CONFLICT.value())
                 .status(HttpStatus.CONFLICT.getReasonPhrase())
-                .message(ErrorMessages.RESOURCE_ALREADY_EXISTS.getMessage())
+                .message(ex.getMessage())
                 .build();
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
     }
