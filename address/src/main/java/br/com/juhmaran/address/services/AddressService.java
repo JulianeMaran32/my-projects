@@ -17,6 +17,8 @@ public interface AddressService {
 
     void delete(Long id);
 
+    AddressResponse findByCepAndSave(String cep);
+
     AddressResponse findByCep(String cep);
 
 }

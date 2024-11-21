@@ -1,0 +1,213 @@
+openapi: 3.0.0
+info:
+  title: Exception Handling API
+  description: API documentation for exception handling
+  version: 1.0.0
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        status:
+          type: string
+          example: "Bad Request"
+        message:
+          type: string
+          example: "Requisição inválida."
+
+    ValidationErrorResponse:
+      allOf:
+        - $ref: '#/components/schemas/ErrorResponse'
+        - type: object
+          properties:
+            errors:
+              type: object
+              additionalProperties:
+                type: string
+              example:
+                field1: "Error message for field1"
+                field2: "Error message for field2"
+
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            badRequest:
+              value:
+                code: 400
+                status: "Bad Request"
+                message: "Requisição inválida."
+
+    ValidationError:
+      description: Validation Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationErrorResponse'
+          examples:
+            validationError:
+              value:
+                code: 400
+                status: "Bad Request"
+                message: "Requisição inválida."
+                errors:
+                  field1: "Error message for field1"
+                  field2: "Error message for field2"
+
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            unauthorized:
+              value:
+                code: 401
+                status: "Unauthorized"
+                message: "Usuário não autenticado."
+
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            forbidden:
+              value:
+                code: 403
+                status: "Forbidden"
+                message: "Acesso negado. Usuário não possui permissão."
+
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            notFound:
+              value:
+                code: 404
+                status: "Not Found"
+                message: "Recurso não encontrado."
+
+    MethodNotAllowed:
+      description: Method Not Allowed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            methodNotAllowed:
+              value:
+                code: 405
+                status: "Method Not Allowed"
+                message: "Método de solicitação HTTP não suportado."
+
+    NotAcceptable:
+      description: Not Acceptable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            notAcceptable:
+              value:
+                code: 406
+                status: "Not Acceptable"
+                message: "Tipo de mídia HTTP não aceitável."
+
+    Conflict:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            conflict:
+              value:
+                code: 409
+                status: "Conflict"
+                message: "Conflito. O recurso já existe."
+
+    UnsupportedMediaType:
+      description: Unsupported Media Type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            unsupportedMediaType:
+              value:
+                code: 415
+                status: "Unsupported Media Type"
+                message: "Tipo de mídia HTTP não suportado."
+
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            internalServerError:
+              value:
+                code: 500
+                status: "Internal Server Error"
+                message: "Erro interno no servidor."
+
+paths:
+  /example:
+    get:
+      summary: Example endpoint
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ErrorResponse'
+                  - $ref: '#/components/schemas/ValidationErrorResponse'
+              examples:
+                badRequest:
+                  value:
+                    code: 400
+                    status: "Bad Request"
+                    message: "Requisição inválida."
+                validationError:
+                  value:
+                    code: 400
+                    status: "Bad Request"
+                    message: "Requisição inválida."
+                    errors:
+                      field1: "Error message for field1"
+                      field2: "Error message for field2"
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '415':
+          $ref: '#/components/responses/UnsupportedMediaType'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
