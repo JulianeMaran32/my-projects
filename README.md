@@ -37,7 +37,7 @@ Uma API REST para gerenciamento de endereços, utilizando Spring Boot.
 
 #### Uso
 
-Acesse a documentação da API em `http://localhost:8080/swagger-ui.html` para ver os endpoints disponíveis.
+Acesse a documentação da API em `http://localhost:8081/api/v1/swagger-ui.html` para ver os endpoints disponíveis.
 
 ### Biblioteca de Exception Handling
 
