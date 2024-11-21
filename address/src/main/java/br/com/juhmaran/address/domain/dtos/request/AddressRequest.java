@@ -1,5 +1,6 @@
 package br.com.juhmaran.address.domain.dtos.request;
 
+import br.com.juhmaran.address.validators.ValidCep;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AddressRequest {
 
-    @Pattern(regexp = "^\\d{8}$", message = "O CEP deve conter exatamente 8 dígitos")
+    @ValidCep
     private String zipCode;
 
     @Size(max = 150, message = "O campo 'street' deve ter no máximo {max} caracteres, mas foi fornecido: {validatedValue}")
