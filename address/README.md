@@ -1,98 +1,110 @@
-# API de Agenda de Endereços
+# REST API Address
 
-## Descrição
+Esta é uma API REST para gerenciamento de endereços, utilizando Spring Boot.
 
-Esta API é uma simples API de agenda de endereços que permite armazenar, recuperar, atualizar e excluir endereços. A API
-utiliza o OpenFeign para obter dados de endereços de uma API externa (ViaCep).
+## Tecnologias Utilizadas
+
+- **Java**
+- **Spring Boot**
+- **OpenFeign**: Para integração com a API ViaCep
+- **ViaCep**: Para busca de endereços por CEP
+- **Flyway**: Para migrações de banco de dados
+- **MySQL**: Banco de dados relacional
+- **Lombok**: Para reduzir o código boilerplate
+- **MapStruct**: Para mapeamento de objetos
+- **Docker**: Para containerização da aplicação
+
+## Funcionalidades
+
+- **CRUD de Endereços**:
+    - Buscar por ID
+    - Buscar por CEP
+    - Buscar por CEP e salvar
+    - Salvar endereço
+    - Atualizar endereço por ID
+    - Excluir endereço por ID
+    - Listar endereços
 
 ## Endpoints
 
-### GET /addresses
+- **Listar Endereços**: `GET /api/v1/address`
+- **Buscar Endereço por ID**: `GET /api/v1/address/{id}`
+- **Buscar Endereço por CEP**: `GET /api/v1/address/cep/{cep}`
+- **Buscar Endereço por CEP e Salvar**: `GET /api/v1/address/cep/save/{cep}`
+- **Salvar Endereço**: `POST /api/v1/address`
+- **Atualizar Endereço por ID**: `PUT /api/v1/address/{id}`
+- **Excluir Endereço por ID**: `DELETE /api/v1/address/{id}`
 
-Este endpoint retorna uma lista de todos os endereços na agenda.
+## Configuração do Banco de Dados
 
-### GET /addresses/{id}
+Certifique-se de que você tem o MySQL instalado e configurado. Atualize as configurações de banco de dados no arquivo
+`application.properties`:
 
-Este endpoint retorna um único endereço pelo seu ID.
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/address_db
+spring.datasource.username=root
+spring.datasource.password=yourpassword
+spring.jpa.hibernate.ddl-auto=update
+spring.flyway.enabled=true
+```
 
-### POST /addresses
+## Executando a Aplicação
 
-Este endpoint cria um novo endereço.
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/JulianeMaran32/my-projects.git
+   ```
 
-### PUT /addresses/{id}
+2. Navegue até o diretório do projeto:
+   ```bash
+   cd my-projects/address-api
+   ```
 
-Este endpoint atualiza um endereço existente.
+3. Compile e execute o projeto:
+   ```bash
+   mvn clean install
+   mvn spring-boot:run
+   ```
 
-### DELETE /addresses/{id}
+4. Acesse a aplicação em `http://localhost:8081/api/v1/address`.
 
-Este endpoint exclui um endereço pelo seu ID.
+## Docker
 
-## Execução com Dockerfile e docker-compose
+Para construir e executar a aplicação usando Docker, siga os passos abaixo:
 
-Para executar a aplicação usando Docker e Docker Compose, siga os passos abaixo:
-
-1. Crie a imagem Docker:
-   ```sh
+1. Construa a imagem Docker:
+   ```bash
    docker build -t address-api .
    ```
 
-2. Inicie os containers com Docker Compose:
-   ```sh
-   docker-compose up
+2. Execute o container Docker:
+   ```bash
+   docker run -p 8081:8081 address-api
    ```
 
-A API estará disponível em [http://localhost:8080](http://localhost:8080).
+## Importando a Biblioteca de Exception Handling
 
-## Utilização de OpenFeign para obter os dados do endereço
+Certifique-se de importar o jar da biblioteca de Exception Handling no seu projeto. Adicione a dependência no `pom.xml`:
 
-A API utiliza o OpenFeign para se comunicar com a API externa ViaCep e obter dados de endereços. O OpenFeign facilita a
-integração com serviços RESTful externos.
+```xml
 
-## Utilização de API externa (ViaCep)
-
-A API utiliza a API externa ViaCep para obter informações de endereços com base no CEP fornecido. Para mais informações
-sobre a API ViaCep, visite [https://viacep.com.br](https://viacep.com.br).
-
-## Documentação da API
-
-A documentação da API está disponível em [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html).
-
-## Tecnologias
-
-- Java 21
-- Spring Boot
-- OpenFeign
-- Spring Data JPA
-- MySQL Database
-- Docker
-- Docker Compose
-- Swagger
-- JUnit
-- Mockito
-- Lombok
-- MapStruct
-- Maven
-
-## Perfis
-
-### Ativando Perfil `local`
-
-```sh
-java -jar your-application.jar --spring.profiles.active=local
+<dependency>
+    <groupId>br.com.juhmaran</groupId>
+    <artifactId>exception-handling</artifactId>
+    <version>1.0.0</version>
+</dependency>
 ```
-
-### Ativando Perfil `prod`
-
-```sh
-java -jar your-application.jar --spring.profiles.active=prod
-```
-
-
-## Autor
-
-- [Juliane Maran](mailto:julianemaran@gmail.com)
 
 ## Licença
 
-Este projeto está licenciado sob a licença MIT - consulte o arquivo [LICENSE](LICENSE) para obter detalhes.
+Este projeto está licenciado sob a [MIT License](LICENSE).
 
+## Autora
+
+Juliane Maran
+
+## Contato
+
+- **Email**: [Juliane](mailto:julianemaran@gmail.com)
+- **LinkedIn**: [Juliane Maran](https://www.linkedin.com/in/juliane-maran-168b73133)
+- **GitHub**: [JulianeMaran32](https://github.com/JulianeMaran32)
