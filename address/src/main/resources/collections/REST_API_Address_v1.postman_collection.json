@@ -1,0 +1,912 @@
+{
+	"info": {
+		"_postman_id": "75ea3ce7-675f-4f84-8e86-d8230bf0faab",
+		"name": "REST API Address",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13771815"
+	},
+	"item": [
+		{
+			"name": "Buscar endereço por CEP",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/address/cep/123456789",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"address",
+						"cep",
+						"123456789"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/address/cep/01001000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"cep",
+								"01001000"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 01:12:31 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=20"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "false"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 2,\n    \"zip_code\": \"01001-000\",\n    \"street\": \"Praça da Sé\",\n    \"complement\": \"lado ímpar\",\n    \"unit\": \"\",\n    \"neighborhood\": \"Sé\",\n    \"city\": \"São Paulo\",\n    \"state_abbreviation\": \"SP\",\n    \"state\": \"São Paulo\"\n}"
+				},
+				{
+					"name": "200 OK com mascara",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/address/cep/01001-000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"cep",
+								"01001-000"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 01:13:59 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=20"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "false"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 3,\n    \"zip_code\": \"01001-000\",\n    \"street\": \"Praça da Sé\",\n    \"complement\": \"lado ímpar\",\n    \"unit\": \"\",\n    \"neighborhood\": \"Sé\",\n    \"city\": \"São Paulo\",\n    \"state_abbreviation\": \"SP\",\n    \"state\": \"São Paulo\"\n}"
+				},
+				{
+					"name": "500 Erro interno no servidor",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/address/cep/01001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"cep",
+								"01001"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 23:29:27 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Server",
+							"value": "false"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 500,\n    \"status\": \"Internal Server Error\",\n    \"message\": \"Erro interno no servidor.\"\n}"
+				},
+				{
+					"name": "500 Erro ao salvar endereço",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/address/cep/nnnnn",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"cep",
+								"nnnnn"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 23:45:28 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Server",
+							"value": "false"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 500,\n    \"status\": \"Internal Server Error\",\n    \"message\": \"Erro ao salvar endereço.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Listar endereços",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/address",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"address"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/address",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"address"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 01:15:28 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=20"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "false"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 2,\n        \"zip_code\": \"01001-000\",\n        \"street\": \"Praça da Sé\",\n        \"complement\": \"lado ímpar\",\n        \"unit\": \"\",\n        \"neighborhood\": \"Sé\",\n        \"city\": \"São Paulo\",\n        \"state_abbreviation\": \"SP\",\n        \"state\": \"São Paulo\"\n    },\n    {\n        \"id\": 3,\n        \"zip_code\": \"01001-000\",\n        \"street\": \"Praça da Sé\",\n        \"complement\": \"lado ímpar\",\n        \"unit\": \"\",\n        \"neighborhood\": \"Sé\",\n        \"city\": \"São Paulo\",\n        \"state_abbreviation\": \"SP\",\n        \"state\": \"São Paulo\"\n    }\n]"
+				},
+				{
+					"name": "500 Erro interno no servidor",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/addre",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"addre"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 23:57:28 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Server",
+							"value": "false"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 500,\n    \"status\": \"Internal Server Error\",\n    \"message\": \"Erro interno no servidor.\"\n}"
+				},
+				{
+					"name": "405 Método não suportado",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/address",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"address"
+							]
+						}
+					},
+					"status": "Method Not Allowed",
+					"code": 405,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 23:57:52 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=20"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "false"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 405,\n    \"status\": \"Method Not Allowed\",\n    \"message\": \"Método de solicitação HTTP não suportado.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Buscar endereço por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/address/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"address",
+						"3"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/address/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 01:13:02 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=20"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "false"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 2,\n    \"zip_code\": \"01001-000\",\n    \"street\": \"Praça da Sé\",\n    \"complement\": \"lado ímpar\",\n    \"unit\": \"\",\n    \"neighborhood\": \"Sé\",\n    \"city\": \"São Paulo\",\n    \"state_abbreviation\": \"SP\",\n    \"state\": \"São Paulo\"\n}"
+				},
+				{
+					"name": "404 Recurso não encontrado",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/address/99",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"99"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 23:55:50 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=20"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "false"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 404,\n    \"status\": \"Not Found\",\n    \"message\": \"Recurso não encontrado.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Excluir endereço por ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/address/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"address",
+						"5"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "204 No Content",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/address/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"1"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 01:15:08 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=20"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "false"
+						}
+					],
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "404 ID não encontrado",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/v1/address/99",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"99"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 23:56:28 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=20"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "false"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 404,\n    \"status\": \"Not Found\",\n    \"message\": \"Recurso não encontrado.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Atualizar endereço por ID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"zip_code\": \"01001000\",\r\n    \"street\": \"Praça da Sé\",\r\n    \"complement\": \"lado ímpar\",\r\n    \"unit\": \"\",\r\n    \"neighborhood\": \"Sé\",\r\n    \"city\": \"São Paulo\",\r\n    \"state_abbreviation\": \"SP\",\r\n    \"state\": \"São Paulo\",\r\n    \"country\": \"Brasil\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/v1/address/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"address",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"zip_code\": \"01001000\",\r\n    \"street\": \"Praça da Sé\",\r\n    \"complement\": \"lado ímpar\",\r\n    \"unit\": \"\",\r\n    \"neighborhood\": \"Sé\",\r\n    \"city\": \"São Paulo\",\r\n    \"state_abbreviation\": \"SP\",\r\n    \"state\": \"São Paulo\",\r\n    \"country\": \"Brasil\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/v1/address/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 01:18:21 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=20"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "false"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 2,\n    \"zip_code\": \"01001000\",\n    \"street\": \"Praça da Sé\",\n    \"complement\": \"lado ímpar\",\n    \"unit\": \"\",\n    \"neighborhood\": \"Sé\",\n    \"city\": \"São Paulo\",\n    \"state_abbreviation\": \"SP\",\n    \"state\": \"São Paulo\"\n}"
+				},
+				{
+					"name": "404 Not Found",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"zip_code\": \"01001000\",\r\n    \"street\": \"Praça da Sé\",\r\n    \"complement\": \"lado ímpar\",\r\n    \"unit\": \"\",\r\n    \"neighborhood\": \"Sé\",\r\n    \"city\": \"São Paulo\",\r\n    \"state_abbreviation\": \"SP\",\r\n    \"state\": \"São Paulo\",\r\n    \"country\": \"Brasil\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/v1/address/25",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"address",
+								"25"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 23:10:23 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=20"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "false"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 404,\n    \"status\": \"Not Found\",\n    \"message\": \"Recurso não encontrado.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Cadastrar endereço",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"zip_code\": \"01001000\",\r\n    \"street\": \"Praça da Sé\",\r\n    \"complement\": \"lado ímpar\",\r\n    \"unit\": \"\",\r\n    \"neighborhood\": \"Sé\",\r\n    \"city\": \"São Paulo\",\r\n    \"state_abbreviation\": \"SP\",\r\n    \"state\": \"São Paulo\",\r\n    \"country\": \"Brasil\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/v1/address",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"address"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"zip_code\": \"01001000\",\r\n    \"street\": \"Praça da Sé\",\r\n    \"complement\": \"lado ímpar\",\r\n    \"unit\": \"\",\r\n    \"neighborhood\": \"Sé\",\r\n    \"city\": \"São Paulo\",\r\n    \"state_abbreviation\": \"SP\",\r\n    \"state\": \"São Paulo\",\r\n    \"country\": \"Brasil\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/v1/address",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"address"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 20 Nov 2024 01:19:59 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=20"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "false"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 4,\n    \"zip_code\": \"01001000\",\n    \"street\": \"Praça da Sé\",\n    \"complement\": \"lado ímpar\",\n    \"unit\": \"\",\n    \"neighborhood\": \"Sé\",\n    \"city\": \"São Paulo\",\n    \"state_abbreviation\": \"SP\",\n    \"state\": \"São Paulo\"\n}"
+				}
+			]
+		}
+	]
+}
