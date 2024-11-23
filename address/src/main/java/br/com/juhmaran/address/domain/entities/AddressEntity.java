@@ -30,11 +30,11 @@ public class AddressEntity implements Serializable {
     @Column(name = "street", length = 150)
     private String street;
 
+    @Column(name = "number", length = 10)
+    private String number;
+
     @Column(name = "complement", length = 150)
     private String complement;
-
-    @Column(name = "unit", length = 50)
-    private String unit;
 
     @Column(name = "neighborhood", length = 100)
     private String neighborhood;

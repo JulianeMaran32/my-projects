@@ -1,6 +1,6 @@
 package br.com.juhmaran.address;
 
-import br.com.juhmaran.exception_handling.annotations.EnableExceptionHandling;
+import br.com.juhmaran.exceptionhandling.annotations.EnableExceptionHandling;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;

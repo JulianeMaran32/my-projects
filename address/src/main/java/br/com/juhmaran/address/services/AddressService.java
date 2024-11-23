@@ -1,24 +1,25 @@
 package br.com.juhmaran.address.services;
 
-import br.com.juhmaran.address.domain.dtos.request.AddressRequest;
+import br.com.juhmaran.address.domain.dtos.request.RegisterAddressRequest;
+import br.com.juhmaran.address.domain.dtos.request.UpdateAddressRequest;
 import br.com.juhmaran.address.domain.dtos.response.AddressResponse;
 
 import java.util.List;
 
 public interface AddressService {
 
-    List<AddressResponse> findAll();
+    List<AddressResponse> findAllAddresses();
 
-    AddressResponse findById(Long id);
+    AddressResponse findAddressById(Long id);
 
-    AddressResponse create(AddressRequest addressRequest);
+    AddressResponse registerAddress(RegisterAddressRequest registerAddressRequest);
 
-    AddressResponse update(Long id, AddressRequest addressRequest);
+    AddressResponse updateAddress(Long id, UpdateAddressRequest updateAddressRequest);
 
-    void delete(Long id);
+    void deleteAddress(Long id);
 
-    AddressResponse findByCepAndSave(String cep);
+    AddressResponse searchAddressByZipCode(String cep);
 
-    AddressResponse findByCep(String cep);
+    AddressResponse saveAddress(UpdateAddressRequest updateAddressRequest);
 
 }
