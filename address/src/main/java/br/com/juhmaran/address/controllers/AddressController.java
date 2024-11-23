@@ -1,6 +1,7 @@
 package br.com.juhmaran.address.controllers;
 
-import br.com.juhmaran.address.domain.dtos.request.AddressRequest;
+import br.com.juhmaran.address.domain.dtos.request.RegisterAddressRequest;
+import br.com.juhmaran.address.domain.dtos.request.UpdateAddressRequest;
 import br.com.juhmaran.address.domain.dtos.response.AddressResponse;
 import br.com.juhmaran.address.services.AddressService;
 import jakarta.validation.Valid;
@@ -25,45 +26,45 @@ public class AddressController {
 
     @GetMapping
     public ResponseEntity<List<AddressResponse>> getAddress() {
-        List<AddressResponse> addresses = addressService.findAll();
+        List<AddressResponse> addresses = addressService.findAllAddresses();
         return ResponseEntity.status(HttpStatus.OK).body(addresses);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AddressResponse> getAddressById(@PathVariable(name = "id") Long id) {
-        AddressResponse address = addressService.findById(id);
+        AddressResponse address = addressService.findAddressById(id);
         return ResponseEntity.status(HttpStatus.OK).body(address);
     }
 
     @PostMapping
-    public ResponseEntity<AddressResponse> createAddress(@RequestBody @Valid AddressRequest addressRequest) {
-        AddressResponse createdAddress = addressService.create(addressRequest);
+    public ResponseEntity<AddressResponse> createAddress(@RequestBody @Valid RegisterAddressRequest registerAddressRequest) {
+        AddressResponse createdAddress = addressService.registerAddress(registerAddressRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAddress);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<AddressResponse> updateAddress(@PathVariable(name = "id") Long id,
-                                                         @RequestBody @Valid AddressRequest addressRequest) {
-        AddressResponse updatedAddress = addressService.update(id, addressRequest);
+                                                         @RequestBody @Valid UpdateAddressRequest updateAddressRequest) {
+        AddressResponse updatedAddress = addressService.updateAddress(id, updateAddressRequest);
         return ResponseEntity.status(HttpStatus.OK).body(updatedAddress);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAddress(@PathVariable(name = "id") Long id) {
-        addressService.delete(id);
+        addressService.deleteAddress(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping("/cep/{cep}")
-    public ResponseEntity<AddressResponse> getAddressByCep(@PathVariable(name = "cep") String cep) {
-        AddressResponse address = addressService.findByCep(cep);
-        return ResponseEntity.status(HttpStatus.OK).body(address);
+    @GetMapping("/search")
+    public ResponseEntity<AddressResponse> searchAddressByZipCode(@RequestParam String cep) {
+        AddressResponse addressResponse = addressService.searchAddressByZipCode(cep);
+        return ResponseEntity.ok(addressResponse);
     }
 
-    @GetMapping("/cep/save/{cep}")
-    public ResponseEntity<AddressResponse> getAddressByCepAndSave(@PathVariable(name = "cep") String cep) {
-        AddressResponse address = addressService.findByCepAndSave(cep);
-        return ResponseEntity.status(HttpStatus.OK).body(address);
+    @PostMapping("/save")
+    public ResponseEntity<AddressResponse> saveAddress(@RequestBody @Valid UpdateAddressRequest updateAddressRequest) {
+        AddressResponse addressResponse = addressService.saveAddress(updateAddressRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(addressResponse);
     }
 
 }

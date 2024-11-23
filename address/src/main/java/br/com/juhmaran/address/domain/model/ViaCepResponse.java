@@ -1,7 +1,7 @@
 package br.com.juhmaran.address.domain.model;
 
-import br.com.juhmaran.address.validators.ValidCep;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,17 +13,15 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ViaCepResponse {
 
-    @ValidCep
+    @Pattern(regexp = "^\\d{8}$", message = "CEP inválido")
     private String cep;
 
+    @Size(min = 3, message = "O campo 'logradouro' deve ter no mínimo {min} caracteres")
     private String logradouro;
-
-    private String complemento;
-
-    private String unidade;
 
     private String bairro;
 
+    @Size(min = 3, message = "O campo 'localidade' deve ter no mínimo {min} caracteres")
     private String localidade;
 
     @Pattern(regexp = "^[A-Z]{2}$", message = "UF inválida")

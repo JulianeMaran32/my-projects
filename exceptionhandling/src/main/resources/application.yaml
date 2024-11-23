@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: exception-handling
+  messages:
+    encoding: UTF-8
+    basename: "messages,config.i18n.messages"
+    fallback-to-system-locale: true
+
+debug: true
+
+logging:
+  config: classpath:logback-spring.xml
+  charset: UTF-8
+  include-application-name: true
+  level:
+    root: DEBUG
+    org.springframework.web: DEBUG
+    br.com.juhmaran.exceptionhandling: DEBUG
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
