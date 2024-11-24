@@ -1,0 +1,502 @@
+openapi: 3.0.1
+info:
+  title: Address API
+  description: Address API
+  termsOfService: https://opensource.org/licenses/MIT
+  contact:
+    name: Juliane Maran
+    email: julianemaran@gmail.com
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  version: v1
+externalDocs:
+  description: GitHub
+  url: https://github.com/JulianeMaran32/my-projects
+servers:
+  - url: http://localhost:8081/api/v1
+    description: Local server
+tags:
+  - name: Address
+    description: Endpoints para gerenciamento de endereços
+paths:
+  /address/{id}:
+    get:
+      tags:
+        - Address
+      summary: Obter endereço por ID
+      description: Endereço por ID já cadastrado
+      operationId: getAddressById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Endereço encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressResponse'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '404':
+          description: Endereço não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - Address
+      summary: Atualizar endereço
+      description: Atualizar um endereço por ID já cadastrado
+      operationId: updateAddress
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAddressRequest'
+        required: true
+      responses:
+        '200':
+          description: Endereço atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressResponse'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '404':
+          description: Endereço não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Address
+      summary: Excluir endereço
+      description: Excluir um endereço por ID já cadastrado
+      operationId: deleteAddress
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Endereço excluído com sucesso
+          content:
+            application/json: { }
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '404':
+          description: Endereço não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /address:
+    get:
+      tags:
+        - Address
+      summary: Listar todos os endereços cadastrados
+      operationId: getAllAddresses
+      parameters:
+        - name: pageable
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/Pageable'
+      responses:
+        '200':
+          description: Lista de endereços encontrada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressResponse'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '500':
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - Address
+      summary: Cadastrar um novo endereço
+      description: Cadastrar um novo Endereço
+      operationId: createAddress
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterAddressRequest'
+        required: true
+      responses:
+        '201':
+          description: Endereço criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressResponse'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '500':
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /address/user/{userId}:
+    get:
+      tags:
+        - Address
+      summary: Obter endereço por Usuário
+      description: Endereço por ID de Usuário
+      operationId: getAddressesByUser
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Endereço encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressResponse'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '404':
+          description: Endereço não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /address/region:
+    get:
+      tags:
+        - Address
+      summary: Obter endereço
+      description: Obter endereço por UF, Localidade e Logradouro
+      operationId: getAddressesByRegion
+      parameters:
+        - name: state_abbreviation
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: city
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: street
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Endereço encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViaCepResponse'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '404':
+          description: Endereço não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    AddressResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identificador único do Endereço
+          format: int64
+          example: 22
+        zipCode:
+          type: string
+          description: CEP
+          example: 12345-678
+        street:
+          type: string
+          description: Logradouro (rua, avenida, alameda etc.)
+          example: Rua das Flores
+        number:
+          type: string
+          description: Número
+          example: '123'
+        complement:
+          type: string
+          description: Complemento
+          example: Casa
+        neighborhood:
+          type: string
+          description: Bairro
+          example: Centro
+        city:
+          type: string
+          description: Cidade
+          example: São Paulo
+        stateAbbreviation:
+          type: string
+          description: UF
+          example: SP
+        state:
+          type: string
+          description: Estado
+          example: São Paulo
+        country:
+          type: string
+          description: País
+          example: Brasil
+        userId:
+          type: integer
+          description: Identificador Único do Usuário
+          format: int64
+          example: 12
+      description: Classe que representa o objeto de resposta para endereço.
+    ValidationErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Código do erro
+          format: int32
+        status:
+          type: string
+          description: Status do erro
+        message:
+          type: string
+          description: Mensagem de erro
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+            description: Mapa de erros
+          description: Mapa de erros
+      description: Objeto de resposta para erros de validação
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Código do erro
+          format: int32
+        status:
+          type: string
+          description: Status do erro
+        message:
+          type: string
+          description: Mensagem de erro
+      description: Objeto de resposta para erros
+    UpdateAddressRequest:
+      required:
+        - street
+        - zipCode
+      type: object
+      properties:
+        zipCode:
+          pattern: ^\d{8}$
+          type: string
+          description: CEP
+          example: 12345-678
+        street:
+          maxLength: 2147483647
+          minLength: 3
+          type: string
+          description: Logradouro (rua, avenida, alameda etc.)
+          example: Rua das Flores
+        number:
+          type: string
+          description: Número
+          example: '123'
+        complement:
+          type: string
+          description: Complemento
+          example: Casa
+        neighborhood:
+          type: string
+          description: Bairro
+          example: Centro
+        city:
+          maxLength: 2147483647
+          minLength: 3
+          type: string
+          description: Localidade (Cidade)
+          example: São Paulo
+        stateAbbreviation:
+          pattern: ^[A-Z]{2}$
+          type: string
+          description: UF
+          example: SP
+        state:
+          type: string
+          description: Estado
+          example: São Paulo
+        country:
+          type: string
+          description: País
+          example: Brasil
+      description: Classe que representa o objeto de requisição para atualização de endereço.
+    RegisterAddressRequest:
+      required:
+        - userId
+        - zipCode
+      type: object
+      properties:
+        zipCode:
+          pattern: ^\d{8}$
+          type: string
+          description: CEP
+          example: 12345-678
+        number:
+          type: string
+          description: Número
+          example: '123'
+        complement:
+          type: string
+          description: Complemento
+          example: Casa
+        country:
+          type: string
+          description: País
+          example: Brasil
+        userId:
+          type: integer
+          description: Identificador único do Usuário
+          format: int64
+          example: 12
+      description: Classe que representa o objeto de requisição para registro de endereço.
+    Pageable:
+      type: object
+      properties:
+        page:
+          minimum: 0
+          type: integer
+          format: int32
+        size:
+          minimum: 1
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            type: string
+    ViaCepResponse:
+      type: object
+      properties:
+        cep:
+          pattern: ^\d{8}$
+          type: string
+          description: CEP
+          example: 12345-678
+        logradouro:
+          maxLength: 2147483647
+          minLength: 3
+          type: string
+          description: Logradouro (rua, avenida, alameda etc.)
+          example: Rua das Flores
+        bairro:
+          type: string
+          description: Bairro
+          example: Centro
+        localidade:
+          maxLength: 2147483647
+          minLength: 3
+          type: string
+          description: Localidade (Cidade)
+          example: São Paulo
+        uf:
+          pattern: ^[A-Z]{2}$
+          type: string
+          description: UF
+          example: SP
+        estado:
+          type: string
+          description: Estado
+          example: São Paulo

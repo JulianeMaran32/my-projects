@@ -4,9 +4,13 @@ import br.com.juhmaran.address.domain.dtos.request.RegisterAddressRequest;
 import br.com.juhmaran.address.domain.dtos.request.UpdateAddressRequest;
 import br.com.juhmaran.address.domain.dtos.response.AddressResponse;
 import br.com.juhmaran.address.domain.model.ViaCepResponse;
+import br.com.juhmaran.address.exceptions.dtos.ErrorResponse;
+import br.com.juhmaran.address.exceptions.dtos.ValidationErrorResponse;
 import br.com.juhmaran.address.services.AddressService;
 import br.com.juhmaran.address.services.ViaCepService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -24,7 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/address")
 @RequiredArgsConstructor
-@Tag(name = "Address", description = "Address API")
+@Tag(name = "Address", description = "Endpoints para gerenciamento de endereços")
 @CrossOrigin(origins = "*")
 public class AddressController {
 
@@ -33,9 +37,12 @@ public class AddressController {
 
     @Operation(summary = "Cadastrar um novo endereço", description = "Cadastrar um novo Endereço",
             tags = {"Address"}, responses = {
-            @ApiResponse(responseCode = "201", description = "Endereço criado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
+            @ApiResponse(responseCode = "201", description = "Endereço criado com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AddressResponse.class))}),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ValidationErrorResponse.class))}),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))})
     })
     @PostMapping
     public ResponseEntity<AddressResponse> createAddress(@Valid @RequestBody RegisterAddressRequest request) {
@@ -45,10 +52,14 @@ public class AddressController {
 
     @Operation(summary = "Atualizar endereço", description = "Atualizar um endereço por ID já cadastrado",
             operationId = "updateAddress", tags = {"Address"}, responses = {
-            @ApiResponse(responseCode = "200", description = "Endereço atualizado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "404", description = "Endereço não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
+            @ApiResponse(responseCode = "200", description = "Endereço atualizado com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AddressResponse.class))}),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ValidationErrorResponse.class))}),
+            @ApiResponse(responseCode = "404", description = "Endereço não encontrado", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))}),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))})
     })
     @PutMapping("/{id}")
     public ResponseEntity<AddressResponse> updateAddress(@PathVariable(value = "id") Long id,
@@ -59,10 +70,14 @@ public class AddressController {
 
     @Operation(summary = "Excluir endereço", description = "Excluir um endereço por ID já cadastrado",
             operationId = "deleteAddress", tags = {"Address"}, responses = {
-            @ApiResponse(responseCode = "204", description = "Endereço excluído com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "404", description = "Endereço não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
+            @ApiResponse(responseCode = "204", description = "Endereço excluído com sucesso", content = {
+                    @Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ValidationErrorResponse.class))}),
+            @ApiResponse(responseCode = "404", description = "Endereço não encontrado", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))}),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))})
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAddress(@PathVariable(value = "id") Long id) {
@@ -72,10 +87,14 @@ public class AddressController {
 
     @Operation(summary = "Obter endereço por ID", description = "Endereço por ID já cadastrado",
             operationId = "getAddressById", tags = {"Address"}, responses = {
-            @ApiResponse(responseCode = "200", description = "Endereço encontrado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "404", description = "Endereço não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
+            @ApiResponse(responseCode = "200", description = "Endereço encontrado com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AddressResponse.class))}),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ValidationErrorResponse.class))}),
+            @ApiResponse(responseCode = "404", description = "Endereço não encontrado", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))}),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))})
     })
     @GetMapping("/{id}")
     public ResponseEntity<AddressResponse> getAddressById(@PathVariable(value = "id") Long id) {
@@ -85,9 +104,12 @@ public class AddressController {
 
     @Operation(summary = "Listar todos os endereços cadastrados", description = "",
             operationId = "getAllAddresses", tags = {"Address"}, responses = {
-            @ApiResponse(responseCode = "200", description = "Lista de endereços encontrada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
+            @ApiResponse(responseCode = "200", description = "Lista de endereços encontrada com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AddressResponse.class))}),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ValidationErrorResponse.class))}),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))})
     })
     @GetMapping
     public ResponseEntity<Page<AddressResponse>> getAllAddresses(Pageable pageable) {
@@ -97,10 +119,14 @@ public class AddressController {
 
     @Operation(summary = "Obter endereço", description = "Obter endereço por UF, Localidade e Logradouro",
             operationId = "getAddressesByRegion", tags = {"Address"}, responses = {
-            @ApiResponse(responseCode = "200", description = "Endereço encontrado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "404", description = "Endereço não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
+            @ApiResponse(responseCode = "200", description = "Endereço encontrado com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ViaCepResponse.class))}),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ValidationErrorResponse.class))}),
+            @ApiResponse(responseCode = "404", description = "Endereço não encontrado", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))}),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))})
     })
     @GetMapping("/region")
     public ResponseEntity<List<ViaCepResponse>> getAddressesByRegion(
@@ -113,10 +139,14 @@ public class AddressController {
 
     @Operation(summary = "Obter endereço por Usuário", description = "Endereço por ID de Usuário",
             operationId = "getAddressesByUser", tags = {"Address"}, responses = {
-            @ApiResponse(responseCode = "200", description = "Endereço encontrado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "404", description = "Endereço não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
+            @ApiResponse(responseCode = "200", description = "Endereço encontrado com sucesso", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = AddressResponse.class))}),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ValidationErrorResponse.class))}),
+            @ApiResponse(responseCode = "404", description = "Endereço não encontrado", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))}),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))})
     })
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<AddressResponse>> getAddressesByUser(@PathVariable(value = "userId") Long userId) {
