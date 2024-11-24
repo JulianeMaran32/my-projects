@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8082
   servlet:
     context-path: /api/v1
     session:
@@ -22,7 +22,7 @@ debug: true
 
 spring:
   application:
-    name: address
+    name: customer
   #  profiles:
   #    active: local # prod
   cache:
@@ -53,7 +53,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
   datasource:
-    url: jdbc:mysql://localhost:3306/address_db?createDatabaseIfNotExist=true&serverTimezone=UTC&autoReconnect=true
+    url: jdbc:mysql://localhost:3306/customer_db?createDatabaseIfNotExist=true&serverTimezone=UTC&autoReconnect=true
     username: root
     password: "root"
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -64,18 +64,6 @@ spring:
     baseline-on-migrate: true
     locations: classpath:db/migration
     repair: true
-  cloud:
-    discovery:
-      enabled: true
-    openfeign:
-      client:
-        default-config:
-          connect-timeout: 5000
-          read-timeout: 5000
-          logger-level: basic
-      autoconfiguration:
-        jackson:
-          enabled: true
 
 springdoc:
   show-actuator: false
@@ -98,7 +86,3 @@ logging:
   pattern:
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-
-via-cep:
-  name: via-cep
-  url: https://viacep.com.br/ws
