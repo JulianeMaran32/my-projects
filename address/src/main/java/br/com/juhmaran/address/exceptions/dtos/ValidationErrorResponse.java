@@ -1,6 +1,5 @@
 package br.com.juhmaran.address.exceptions.dtos;
 
-import br.com.juhmaran.exceptionhandling.dtos.ErrorResponse;
 import lombok.Getter;
 
 import java.util.Map;
