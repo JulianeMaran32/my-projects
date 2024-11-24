@@ -51,4 +51,7 @@ public class AddressEntity implements Serializable {
     @Column(name = "country", length = 30)
     private String country;
 
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
+
 }

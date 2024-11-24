@@ -1,6 +1,7 @@
 package br.com.juhmaran.address.domain.dtos.request;
 
-import jakarta.validation.constraints.Pattern;
+import br.com.juhmaran.address.validators.annotations.ValidStateAbbreviation;
+import br.com.juhmaran.address.validators.annotations.ValidZipCode;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UpdateAddressRequest {
 
-    @Pattern(regexp = "^\\d{8}$", message = "CEP inválido")
+    @ValidZipCode
     private String zipCode;
 
     @Size(min = 3, message = "O campo 'street' deve ter no mínimo {min} caracteres")
@@ -28,7 +29,7 @@ public class UpdateAddressRequest {
     @Size(min = 3, message = "O campo 'city' deve ter no mínimo {min} caracteres")
     private String city;
 
-    @Pattern(regexp = "^[A-Z]{2}$", message = "A 'stateAbbreviation' deve conter exatamente 2 letras maiúsculas")
+    @ValidStateAbbreviation
     private String stateAbbreviation;
 
     private String state;

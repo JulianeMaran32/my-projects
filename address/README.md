@@ -16,21 +16,13 @@ Esta é uma API REST para gerenciamento de endereços, utilizando Spring Boot.
 
 ## Funcionalidades
 
-- **CRUD de Endereços**:
-    - Buscar por ID
-    - Buscar por CEP
-    - Buscar por CEP e salvar
-    - Salvar endereço
-    - Atualizar endereço por ID
-    - Excluir endereço por ID
-    - Listar endereços
+- CRUD de endereços
+- Integração com a API ViaCep para busca de endereços por CEP
 
 ## Endpoints
 
 - **Listar Endereços**: `GET /api/v1/address`
 - **Buscar Endereço por ID**: `GET /api/v1/address/{id}`
-- **Buscar Endereço por CEP**: `GET /api/v1/address/cep/{cep}`
-- **Buscar Endereço por CEP e Salvar**: `GET /api/v1/address/cep/save/{cep}`
 - **Salvar Endereço**: `POST /api/v1/address`
 - **Atualizar Endereço por ID**: `PUT /api/v1/address/{id}`
 - **Excluir Endereço por ID**: `DELETE /api/v1/address/{id}`

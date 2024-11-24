@@ -3,9 +3,13 @@ package br.com.juhmaran.address.controllers;
 import br.com.juhmaran.address.domain.dtos.request.RegisterAddressRequest;
 import br.com.juhmaran.address.domain.dtos.request.UpdateAddressRequest;
 import br.com.juhmaran.address.domain.dtos.response.AddressResponse;
+import br.com.juhmaran.address.domain.model.ViaCepResponse;
 import br.com.juhmaran.address.services.AddressService;
+import br.com.juhmaran.address.services.ViaCepService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -19,52 +23,53 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AddressController {
 
-    // @RequestHeader(name = "Authorization", required = false) String token,
-    // @RequestHeader(name = "Accept-Language", required = false) Locale locale
-
+    private final ViaCepService viaCepService;
     private final AddressService addressService;
 
-    @GetMapping
-    public ResponseEntity<List<AddressResponse>> getAddress() {
-        List<AddressResponse> addresses = addressService.findAllAddresses();
-        return ResponseEntity.status(HttpStatus.OK).body(addresses);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<AddressResponse> getAddressById(@PathVariable(name = "id") Long id) {
-        AddressResponse address = addressService.findAddressById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(address);
-    }
-
     @PostMapping
-    public ResponseEntity<AddressResponse> createAddress(@RequestBody @Valid RegisterAddressRequest registerAddressRequest) {
-        AddressResponse createdAddress = addressService.registerAddress(registerAddressRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdAddress);
+    public ResponseEntity<AddressResponse> createAddress(@Valid @RequestBody RegisterAddressRequest request) {
+        AddressResponse response = addressService.registerAddress(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AddressResponse> updateAddress(@PathVariable(name = "id") Long id,
-                                                         @RequestBody @Valid UpdateAddressRequest updateAddressRequest) {
-        AddressResponse updatedAddress = addressService.updateAddress(id, updateAddressRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(updatedAddress);
+    public ResponseEntity<AddressResponse> updateAddress(@PathVariable(value = "id") Long id,
+                                                         @Valid @RequestBody UpdateAddressRequest request) {
+        AddressResponse response = addressService.updateAddress(id, request);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAddress(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<Void> deleteAddress(@PathVariable(value = "id") Long id) {
         addressService.deleteAddress(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<AddressResponse> searchAddressByZipCode(@RequestParam String cep) {
-        AddressResponse addressResponse = addressService.searchAddressByZipCode(cep);
-        return ResponseEntity.ok(addressResponse);
+    @GetMapping("/{id}")
+    public ResponseEntity<AddressResponse> getAddressById(@PathVariable(value = "id") Long id) {
+        AddressResponse response = addressService.findAddressById(id);
+        return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<AddressResponse> saveAddress(@RequestBody @Valid UpdateAddressRequest updateAddressRequest) {
-        AddressResponse addressResponse = addressService.saveAddress(updateAddressRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(addressResponse);
+    @GetMapping
+    public ResponseEntity<Page<AddressResponse>> getAllAddresses(Pageable pageable) {
+        Page<AddressResponse> responses = addressService.findAllAddresses(pageable);
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/region")
+    public ResponseEntity<List<ViaCepResponse>> getAddressesByRegion(
+            @RequestParam(value = "state_abbreviation") String stateAbbreviation,
+            @RequestParam(value = "city") String city,
+            @RequestParam(value = "street") String street) {
+        List<ViaCepResponse> responses = viaCepService.getAddressesByRegion(stateAbbreviation, city, street);
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<AddressResponse>> getAddressesByUser(@PathVariable(value = "userId") Long userId) {
+        List<AddressResponse> responses = addressService.findAddressesByUser(userId);
+        return ResponseEntity.ok(responses);
     }
 
 }
