@@ -80,11 +80,9 @@ spring:
 springdoc:
   show-actuator: false
   api-docs:
-    version: 1.0
     path: /api-docs
   swagger-ui:
     path: /swagger-ui.html
-    version: 1.0
   use-management-port: false
   default-consumes-media-type: application/json
   default-produces-media-type: application/json

@@ -1,6 +1,8 @@
 package br.com.juhmaran.address.domain.model;
 
-import jakarta.validation.constraints.Pattern;
+import br.com.juhmaran.address.validators.annotations.ValidStateAbbreviation;
+import br.com.juhmaran.address.validators.annotations.ValidZipCode;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,20 +15,26 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ViaCepResponse {
 
-    @Pattern(regexp = "^\\d{8}$", message = "CEP inválido")
+    @Schema(description = "CEP", example = "12345-678", pattern = "^\\d{8}$")
+    @ValidZipCode
     private String cep;
 
+    @Schema(description = "Logradouro (rua, avenida, alameda etc.)", example = "Rua das Flores", minLength = 3)
     @Size(min = 3, message = "O campo 'logradouro' deve ter no mínimo {min} caracteres")
     private String logradouro;
 
+    @Schema(description = "Bairro", example = "Centro")
     private String bairro;
 
+    @Schema(description = "Localidade (Cidade)", example = "São Paulo", minLength = 3)
     @Size(min = 3, message = "O campo 'localidade' deve ter no mínimo {min} caracteres")
     private String localidade;
 
-    @Pattern(regexp = "^[A-Z]{2}$", message = "UF inválida")
+    @Schema(description = "UF", example = "SP", pattern = "^[A-Z]{2}$")
+    @ValidStateAbbreviation
     private String uf;
 
+    @Schema(description = "Estado", example = "São Paulo")
     private String estado;
 
 }

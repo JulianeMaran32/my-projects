@@ -13,90 +13,79 @@ Esta é uma API REST para gerenciamento de endereços, utilizando Spring Boot.
 - **Lombok**: Para reduzir o código boilerplate
 - **MapStruct**: Para mapeamento de objetos
 - **Docker**: Para containerização da aplicação
+- **Docker Compose**: Para orquestração de containers
 
-## Funcionalidades
+## Documentação
 
-- CRUD de endereços
-- Integração com a API ViaCep para busca de endereços por CEP
+A documentação da API pode ser acessada através do Swagger, disponível em:
+`http://localhost:8081/api/v1/swagger-ui/index.html`
+
+## Execução
+
+Para executar a aplicação, é necessário ter o Docker e o Docker Compose instalados.
+
+1. Clone o repositório:
+
+    ```bash
+    git clone
+    ```
+
+2. Acesse o diretório do projeto:
+
+    ```bash
+    cd address
+    ```
+
+3. Execute o comando:
+
+    ```bash
+    docker-compose up
+    ```
+
+4. Acesse a documentação da API:
+
+   `http://localhost:8081/api/v1/swagger-ui/index.html`
+
+5. Para parar a execução, utilize o comando:
+
+    ```bash
+    docker-compose down
+    ```
 
 ## Endpoints
 
-- **Listar Endereços**: `GET /api/v1/address`
-- **Buscar Endereço por ID**: `GET /api/v1/address/{id}`
-- **Salvar Endereço**: `POST /api/v1/address`
-- **Atualizar Endereço por ID**: `PUT /api/v1/address/{id}`
-- **Excluir Endereço por ID**: `DELETE /api/v1/address/{id}`
+### `GET /address/{id}`
 
-## Configuração do Banco de Dados
+Obter endereço por ID já cadastrado.
 
-Certifique-se de que você tem o MySQL instalado e configurado. Atualize as configurações de banco de dados no arquivo
-`application.properties`:
+### `PUT /address/{id}`
 
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/address_db
-spring.datasource.username=root
-spring.datasource.password=yourpassword
-spring.jpa.hibernate.ddl-auto=update
-spring.flyway.enabled=true
-```
+Atualizar um endereço por ID já cadastrado.
 
-## Executando a Aplicação
+### `DELETE /address/{id}`
 
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/JulianeMaran32/my-projects.git
-   ```
+Excluir um endereço por ID já cadastrado.
 
-2. Navegue até o diretório do projeto:
-   ```bash
-   cd my-projects/address-api
-   ```
+### `GET /address`
 
-3. Compile e execute o projeto:
-   ```bash
-   mvn clean install
-   mvn spring-boot:run
-   ```
+Listar todos os endereços cadastrados.
 
-4. Acesse a aplicação em `http://localhost:8081/api/v1/address`.
+### `POST /address`
 
-## Docker
+Cadastrar um novo endereço.
 
-Para construir e executar a aplicação usando Docker, siga os passos abaixo:
+### `GET /address/user/{userId}`
 
-1. Construa a imagem Docker:
-   ```bash
-   docker build -t address-api .
-   ```
+Obter endereço por ID de Usuário.
 
-2. Execute o container Docker:
-   ```bash
-   docker run -p 8081:8081 address-api
-   ```
+### `GET /address/region`
 
-## Importando a Biblioteca de Exception Handling
-
-Certifique-se de importar o jar da biblioteca de Exception Handling no seu projeto. Adicione a dependência no `pom.xml`:
-
-```xml
-
-<dependency>
-    <groupId>br.com.juhmaran</groupId>
-    <artifactId>exception-handling</artifactId>
-    <version>1.0.0</version>
-</dependency>
-```
-
-## Licença
-
-Este projeto está licenciado sob a [MIT License](LICENSE).
+Obter endereço por UF, Localidade e Logradouro.
 
 ## Autora
 
-Juliane Maran
+- **Juliane Maran**: [JulianeMaran32](https://github.com/JulianeMaran32/my-projects)
 
-## Contato
+## Licença
 
-- **Email**: [Juliane](mailto:julianemaran@gmail.com)
-- **LinkedIn**: [Juliane Maran](https://www.linkedin.com/in/juliane-maran-168b73133)
-- **GitHub**: [JulianeMaran32](https://github.com/JulianeMaran32)
+Este projeto está licenciado sob a licença MIT - consulte o arquivo [LICENSE.md](LICENSE.md) para obter detalhes.

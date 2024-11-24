@@ -2,9 +2,9 @@ package br.com.juhmaran.address.services.impl;
 
 import br.com.juhmaran.address.clients.ViaCepClient;
 import br.com.juhmaran.address.domain.model.ViaCepResponse;
+import br.com.juhmaran.address.exceptions.runtimes.InternalServerErrorException;
+import br.com.juhmaran.address.exceptions.runtimes.NotFoundException;
 import br.com.juhmaran.address.services.ViaCepService;
-import br.com.juhmaran.exceptionhandling.runtimes.InternalServerErrorException;
-import br.com.juhmaran.exceptionhandling.runtimes.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
