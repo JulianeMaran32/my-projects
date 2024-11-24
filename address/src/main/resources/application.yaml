@@ -2,6 +2,10 @@ server:
   port: 8081
   servlet:
     context-path: /api/v1
+    session:
+      cookie:
+        http-only: true
+        secure: true # apenas http
   server-header: false
   error:
     include-message: always
@@ -9,6 +13,8 @@ server:
     include-stacktrace: always
     whitelabel:
       enabled: false
+  max-http-request-header-size:
+    value: 10KB
   tomcat:
     connection-timeout: 20000
 
@@ -24,16 +30,16 @@ spring:
   gson:
     date-format: 'dd/MM/yyyy'
   jackson:
+    locale: "pt_BR"
+    time-zone: "America/Sao_Paulo"
+    date-format: "dd/MM/yyyy"
+    default-property-inclusion: "NON_NULL"
+    property-naming-strategy: SNAKE_CASE
     serialization:
       indent-output: true
       write-dates-as-timestamps: false
     deserialization:
       fail-on-unknown-properties: false
-    date-format: 'yyyy-MM-dd HH:mm:ss'
-    property-naming-strategy: SNAKE_CASE
-    default-property-inclusion: non_null
-    time-zone: 'America/Sao_Paulo'
-    locale: 'pt_BR'
   messages:
     encoding: UTF-8
     basename: "messages,config.i18n.messages"
@@ -63,10 +69,25 @@ spring:
       enabled: true
     openfeign:
       client:
-        default-config: true
+        default-config:
+          connect-timeout: 5000
+          read-timeout: 5000
+          logger-level: basic
       autoconfiguration:
         jackson:
           enabled: true
+
+springdoc:
+  show-actuator: false
+  api-docs:
+    version: 1.0
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    version: 1.0
+  use-management-port: false
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
 
 logging:
   config: classpath:logback-spring.xml

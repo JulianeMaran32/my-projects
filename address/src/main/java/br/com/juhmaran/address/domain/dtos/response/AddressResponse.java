@@ -21,5 +21,6 @@ public class AddressResponse {
     private String stateAbbreviation;
     private String state;
     private String country;
+    private Long userId;
 
 }

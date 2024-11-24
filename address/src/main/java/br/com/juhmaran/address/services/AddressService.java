@@ -3,23 +3,23 @@ package br.com.juhmaran.address.services;
 import br.com.juhmaran.address.domain.dtos.request.RegisterAddressRequest;
 import br.com.juhmaran.address.domain.dtos.request.UpdateAddressRequest;
 import br.com.juhmaran.address.domain.dtos.response.AddressResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface AddressService {
 
-    List<AddressResponse> findAllAddresses();
+    AddressResponse registerAddress(RegisterAddressRequest request);
 
-    AddressResponse findAddressById(Long id);
-
-    AddressResponse registerAddress(RegisterAddressRequest registerAddressRequest);
-
-    AddressResponse updateAddress(Long id, UpdateAddressRequest updateAddressRequest);
+    AddressResponse updateAddress(Long id, UpdateAddressRequest request);
 
     void deleteAddress(Long id);
 
-    AddressResponse searchAddressByZipCode(String cep);
+    Page<AddressResponse> findAllAddresses(Pageable pageable);
 
-    AddressResponse saveAddress(UpdateAddressRequest updateAddressRequest);
+    List<AddressResponse> findAddressesByUser(Long userId);
+
+    AddressResponse findAddressById(Long id);
 
 }
