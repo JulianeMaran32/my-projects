@@ -1,1 +1,88 @@
-spring.application.name=customer
+server:
+  port: 8082
+  servlet:
+    context-path: /api/v1
+    session:
+      cookie:
+        http-only: true
+        secure: true # apenas http
+  server-header: false
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: always
+    whitelabel:
+      enabled: false
+  max-http-request-header-size:
+    value: 10KB
+  tomcat:
+    connection-timeout: 20000
+
+debug: true
+
+spring:
+  application:
+    name: customer
+  #  profiles:
+  #    active: local # prod
+  cache:
+    type: simple
+  gson:
+    date-format: 'dd/MM/yyyy'
+  jackson:
+    locale: "pt_BR"
+    time-zone: "America/Sao_Paulo"
+    date-format: "dd/MM/yyyy"
+    default-property-inclusion: "NON_NULL"
+    property-naming-strategy: SNAKE_CASE
+    serialization:
+      indent-output: true
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+  messages:
+    encoding: UTF-8
+    basename: "messages,config.i18n.messages"
+    fallback-to-system-locale: true
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update # validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/customer_db?createDatabaseIfNotExist=true&serverTimezone=UTC&autoReconnect=true
+    username: root
+    password: "root"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      register-mbeans: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+    repair: true
+
+springdoc:
+  show-actuator: false
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+  use-management-port: false
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
+logging:
+  config: classpath:logback-spring.xml
+  charset: UTF-8
+  include-application-name: true
+  level:
+    root: DEBUG
+    org.springframework.web: DEBUG
+    br.com.juhmaran.address: DEBUG
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
