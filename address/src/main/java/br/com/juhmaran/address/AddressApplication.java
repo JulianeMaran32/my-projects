@@ -15,7 +15,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @OpenAPIDefinition(
         info = @Info(
                 title = "Address API", version = "v1", description = "Address API",
-                contact = @Contact(name = "Juliana Maran", email = "julianemaran@gmail.com"),
+                contact = @Contact(name = "Juliane Maran", email = "julianemaran@gmail.com"),
                 license = @License(name = "MIT License", url = "https://opensource.org/licenses/MIT"),
                 termsOfService = "https://opensource.org/licenses/MIT"),
         externalDocs = @ExternalDocumentation(description = "GitHub", url = "https://github.com/JulianeMaran32/my-projects"),
