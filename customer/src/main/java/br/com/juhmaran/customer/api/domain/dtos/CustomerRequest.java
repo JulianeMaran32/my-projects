@@ -1,9 +1,10 @@
-package br.com.juhmaran.customer.domain.dtos;
+package br.com.juhmaran.customer.api.domain.dtos;
 
+import br.com.juhmaran.customer.core.util.CpfUtil;
+import br.com.juhmaran.customer.core.validation.annotations.NotEmptyNotNullNotBlank;
+import br.com.juhmaran.customer.core.validation.annotations.ValidCpf;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,21 +17,21 @@ import org.hibernate.validator.constraints.br.CPF;
 @NoArgsConstructor
 public class CustomerRequest {
 
-    @NotBlank(message = "O campo nome não pode estar em branco")
-    @NotNull(message = "O campo nome não pode ser nulo")
-    @NotEmpty(message = "O campo nome não pode ser vazio")
+    @Size(min = 3, max = 150, message = "O campo nome deve ter entre {min} e {max} caracteres.")
+    @NotEmptyNotNullNotBlank(message = "O campo nome não pode estar vazio, nulo ou em branco.")
     private String name;
 
-    @NotBlank(message = "O campo email não pode estar em branco")
-    @NotNull(message = "O campo email não pode ser nulo")
-    @NotEmpty(message = "O campo email não pode ser vazio")
-    @Email(message = "O campo email deve ser um email válido")
+    @Size(min = 3, max = 150, message = "O campo email deve ter entre {min} e {max} caracteres.")
+    @NotEmptyNotNullNotBlank(message = "O campo email não pode estar vazio, nulo ou em branco.")
+    @Email(message = "Informe um e-mail válido.")
     private String email;
 
-    @NotBlank(message = "O campo cpf não pode estar em branco")
-    @NotNull(message = "O campo cpf não pode ser nulo")
-    @NotEmpty(message = "O campo cpf não pode ser vazio")
-    @CPF(message = "O campo cpf deve ser um número de CPF válido")
+    @ValidCpf(message = "CPF inválido. Informe um CPF válido com ou sem máscara.")
+    @CPF(message = "Informe um número de CPF válido.")
     private String cpf;
+
+    public String getCpf() {
+        return CpfUtil.removeMask(this.cpf);
+    }
 
 }

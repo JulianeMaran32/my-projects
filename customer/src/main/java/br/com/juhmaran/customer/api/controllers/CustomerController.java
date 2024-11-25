@@ -1,6 +1,6 @@
-package br.com.juhmaran.customer.controllers;
+package br.com.juhmaran.customer.api.controllers;
 
-import br.com.juhmaran.customer.services.CustomerService;
+import br.com.juhmaran.customer.api.services.CustomerService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;

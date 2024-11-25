@@ -1,4 +1,4 @@
-package br.com.juhmaran.customer.services;
+package br.com.juhmaran.customer.api.services;
 
 public interface CustomerService {
 

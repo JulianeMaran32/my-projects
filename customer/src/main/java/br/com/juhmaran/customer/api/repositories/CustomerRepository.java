@@ -1,6 +1,6 @@
-package br.com.juhmaran.customer.repositories;
+package br.com.juhmaran.customer.api.repositories;
 
-import br.com.juhmaran.customer.domain.entities.Customer;
+import br.com.juhmaran.customer.api.domain.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

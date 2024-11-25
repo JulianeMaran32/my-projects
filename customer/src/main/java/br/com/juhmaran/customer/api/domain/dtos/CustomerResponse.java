@@ -1,5 +1,6 @@
-package br.com.juhmaran.customer.domain.dtos;
+package br.com.juhmaran.customer.api.domain.dtos;
 
+import br.com.juhmaran.customer.core.util.CpfUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,5 +16,9 @@ public class CustomerResponse {
     private String name;
     private String email;
     private String cpf;
+
+    public String getCpf() {
+        return CpfUtil.removeMask(this.cpf);
+    }
 
 }
