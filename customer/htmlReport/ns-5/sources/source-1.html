@@ -1,0 +1,332 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > GlobalExceptionHandler</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">br.com.juhmaran.customer.core.exceptions.handler</a>
+</div>
+
+<h1>Coverage Summary for Class: GlobalExceptionHandler (br.com.juhmaran.customer.core.exceptions.handler)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GlobalExceptionHandler</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    10%
+  </span>
+  <span class="absValue">
+    (2/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    1,9%
+  </span>
+  <span class="absValue">
+    (2/108)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package br.com.juhmaran.customer.core.exceptions.handler;
+&nbsp;
+&nbsp;import br.com.juhmaran.customer.core.exceptions.dtos.ErrorMessages;
+&nbsp;import br.com.juhmaran.customer.core.exceptions.dtos.ErrorResponse;
+&nbsp;import br.com.juhmaran.customer.core.exceptions.dtos.ValidationErrorResponse;
+&nbsp;import br.com.juhmaran.customer.core.exceptions.runtimes.*;
+&nbsp;import jakarta.servlet.ServletException;
+&nbsp;import lombok.extern.slf4j.Slf4j;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.http.converter.HttpMessageNotReadableException;
+&nbsp;import org.springframework.http.converter.HttpMessageNotWritableException;
+&nbsp;import org.springframework.web.HttpMediaTypeNotAcceptableException;
+&nbsp;import org.springframework.web.HttpMediaTypeNotSupportedException;
+&nbsp;import org.springframework.web.HttpRequestMethodNotSupportedException;
+&nbsp;import org.springframework.web.bind.MethodArgumentNotValidException;
+&nbsp;import org.springframework.web.bind.MissingServletRequestParameterException;
+&nbsp;import org.springframework.web.bind.annotation.ExceptionHandler;
+&nbsp;import org.springframework.web.bind.annotation.RestControllerAdvice;
+&nbsp;import org.springframework.web.servlet.NoHandlerFoundException;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.Map;
+&nbsp;
+<b class="fc">&nbsp;@Slf4j</b>
+&nbsp;@RestControllerAdvice
+<b class="fc">&nbsp;public class GlobalExceptionHandler {</b>
+&nbsp;
+&nbsp;    // EXCEPTIONS HANDLERS
+&nbsp;
+&nbsp;    // 400 Bad Request - Validation
+&nbsp;    @ExceptionHandler(MethodArgumentNotValidException.class)
+&nbsp;    public ResponseEntity&lt;ValidationErrorResponse&gt; handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+<b class="nc">&nbsp;        Map&lt;String, String&gt; errors = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;        ex.getBindingResult().getFieldErrors().forEach(</b>
+&nbsp;                error -&gt; {
+<b class="nc">&nbsp;                    String fieldName = error.getField();</b>
+<b class="nc">&nbsp;                    String errorMessage = error.getDefaultMessage();</b>
+<b class="nc">&nbsp;                    errors.put(fieldName, errorMessage);</b>
+&nbsp;                });
+<b class="nc">&nbsp;        var errorResponse = new ValidationErrorResponse(</b>
+<b class="nc">&nbsp;                HttpStatus.BAD_REQUEST.value(),</b>
+<b class="nc">&nbsp;                HttpStatus.BAD_REQUEST.getReasonPhrase(),</b>
+<b class="nc">&nbsp;                ErrorMessages.METHOD_ARGUMENT_NOT_VALID.getMessage(),</b>
+&nbsp;                errors
+&nbsp;        );
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // 400 Bad Request - Custom
+&nbsp;    @ExceptionHandler(IllegalArgumentException.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleIllegalArgumentException(IllegalArgumentException ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.BAD_REQUEST.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.BAD_REQUEST.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ErrorMessages.ILLEGAL_ARGUMENT.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // 400 Bad Request - Custom
+&nbsp;    @ExceptionHandler(HttpMessageNotReadableException.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.BAD_REQUEST.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.BAD_REQUEST.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ErrorMessages.HTTP_MESSAGE_NOT_READABLE.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // 400 Bad Request - Custom
+&nbsp;    @ExceptionHandler(MissingServletRequestParameterException.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleMissingServletRequestParameterException(MissingServletRequestParameterException ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.BAD_REQUEST.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.BAD_REQUEST.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ErrorMessages.MISSING_SERVLET_REQUEST_PARAMETER.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // 404 Not Found - Custom
+&nbsp;    @ExceptionHandler(NoHandlerFoundException.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleNoHandlerFoundException(NoHandlerFoundException ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.NOT_FOUND.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.NOT_FOUND.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ErrorMessages.NO_HANDLER_FOUND.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // 405 Method Not Allowed - Custom
+&nbsp;    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.METHOD_NOT_ALLOWED.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.METHOD_NOT_ALLOWED.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ErrorMessages.HTTP_REQUEST_METHOD_NOT_SUPPORTED.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // 406 Not Acceptable - Custom
+&nbsp;    @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleHttpMediaTypeNotAcceptableException(HttpMediaTypeNotAcceptableException ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.NOT_ACCEPTABLE.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.NOT_ACCEPTABLE.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ErrorMessages.HTTP_MEDIA_TYPE_NOT_ACCEPTABLE.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // 415 Unsupported Media Type - Custom
+&nbsp;    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.UNSUPPORTED_MEDIA_TYPE.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ErrorMessages.HTTP_MEDIA_TYPE_NOT_SUPPORTED.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // 500 Internal Server Error - Custom
+&nbsp;    @ExceptionHandler(HttpMessageNotWritableException.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleHttpMessageNotWritableException(HttpMessageNotWritableException ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ErrorMessages.HTTP_MESSAGE_NOT_WRITABLE.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // 500 Internal Server Error - Custom
+&nbsp;    @ExceptionHandler(ServletException.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleServletException(ServletException ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ErrorMessages.INTERNAL_ERROR.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // 500 Internal Server Error - Custom
+&nbsp;    @ExceptionHandler(Exception.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleException(Exception ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ErrorMessages.INTERNAL_ERROR.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // RUNTIMES EXCEPTIONS
+&nbsp;
+&nbsp;    // 400 Bad Request - Custom
+&nbsp;    @ExceptionHandler(BadRequestException.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleBadRequestException(BadRequestException ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.BAD_REQUEST.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.BAD_REQUEST.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ex.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // 401 Unauthorized - Custom
+&nbsp;    @ExceptionHandler(UnauthenticatedException.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleUnauthorizedException(UnauthenticatedException ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.UNAUTHORIZED.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.UNAUTHORIZED.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ErrorMessages.UNAUTHENTICATED.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // 403 Forbidden - Custom
+&nbsp;    @ExceptionHandler(AccessDeniedException.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleAccessDeniedException(AccessDeniedException ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.FORBIDDEN.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.FORBIDDEN.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ErrorMessages.ACCESS_DENIED.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // 404 Not Found - Custom
+&nbsp;    @ExceptionHandler(NotFoundException.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleNotFoundException(NotFoundException ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.NOT_FOUND.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.NOT_FOUND.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ex.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // 409 Conflict - Custom
+&nbsp;    @ExceptionHandler(ConflictException.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleConflictException(ConflictException ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.CONFLICT.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.CONFLICT.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ex.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // 500 Internal Server Error - Custom
+&nbsp;    @ExceptionHandler(InternalServerErrorException.class)
+&nbsp;    public ResponseEntity&lt;ErrorResponse&gt; handleInternalServerErrorException(InternalServerErrorException ex) {
+<b class="nc">&nbsp;        var errorResponse = ErrorResponse.builder()</b>
+<b class="nc">&nbsp;                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())</b>
+<b class="nc">&nbsp;                .status(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())</b>
+<b class="nc">&nbsp;                .message(ex.getMessage())</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-11-24 20:51</div>
+</div>
+</body>
+</html>
