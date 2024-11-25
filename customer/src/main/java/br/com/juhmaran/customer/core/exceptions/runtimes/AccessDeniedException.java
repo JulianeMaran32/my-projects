@@ -1,4 +1,4 @@
-package br.com.juhmaran.customer.exceptions.runtimes;
+package br.com.juhmaran.customer.core.exceptions.runtimes;
 
 public class AccessDeniedException extends RuntimeException {
     public AccessDeniedException(String message) {

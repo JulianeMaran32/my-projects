@@ -1,9 +1,9 @@
-package br.com.juhmaran.customer.exceptions.handler;
+package br.com.juhmaran.customer.core.exceptions.handler;
 
-import br.com.juhmaran.customer.exceptions.dtos.ErrorMessages;
-import br.com.juhmaran.customer.exceptions.dtos.ErrorResponse;
-import br.com.juhmaran.customer.exceptions.dtos.ValidationErrorResponse;
-import br.com.juhmaran.customer.exceptions.runtimes.*;
+import br.com.juhmaran.customer.core.exceptions.dtos.ErrorMessages;
+import br.com.juhmaran.customer.core.exceptions.dtos.ErrorResponse;
+import br.com.juhmaran.customer.core.exceptions.dtos.ValidationErrorResponse;
+import br.com.juhmaran.customer.core.exceptions.runtimes.*;
 import jakarta.servlet.ServletException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

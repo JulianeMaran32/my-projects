@@ -1,4 +1,4 @@
-package br.com.juhmaran.customer.exceptions.dtos;
+package br.com.juhmaran.customer.core.exceptions.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

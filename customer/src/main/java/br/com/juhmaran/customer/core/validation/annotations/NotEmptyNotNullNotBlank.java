@@ -1,5 +1,6 @@
-package br.com.juhmaran.customer.core.validation;
+package br.com.juhmaran.customer.core.validation.annotations;
 
+import br.com.juhmaran.customer.core.validation.NotEmptyNotNullNotBlankValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

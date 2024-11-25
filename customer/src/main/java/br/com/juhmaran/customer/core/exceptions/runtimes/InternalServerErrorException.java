@@ -1,4 +1,4 @@
-package br.com.juhmaran.customer.exceptions.runtimes;
+package br.com.juhmaran.customer.core.exceptions.runtimes;
 
 public class InternalServerErrorException extends RuntimeException {
     public InternalServerErrorException(String message) {
