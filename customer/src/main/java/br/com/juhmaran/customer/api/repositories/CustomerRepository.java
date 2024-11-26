@@ -1,16 +1,19 @@
 package br.com.juhmaran.customer.api.repositories;
 
 import br.com.juhmaran.customer.api.domain.entities.Customer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.Optional;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    Optional<Customer> findByName(String name);
+    boolean existsByEmail(String email);
 
-    Optional<Customer> findByEmail(String email);
+    boolean existsByPhoneNumber(String phoneNumber);
 
-    Optional<Customer> findByCpf(String cpf);
+    boolean existsByDocumentNumber(String documentNumber);
+
+    Page<Customer> findAll(Specification<Customer> spec, Pageable pageable);
 
 }

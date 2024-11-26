@@ -21,19 +21,25 @@ public class Customer implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 150)
-    private String name;
+    @Column(name = "full_name", nullable = false, length = 150)
+    private String fullName;
 
-    @Column(nullable = false, unique = true, length = 150)
+    @Column(name = "email", nullable = false, unique = true, length = 150)
     private String email;
 
-    @Column(nullable = false, unique = true, length = 11)
-    private String cpf;
+    @Column(name = "document_number", nullable = false, unique = true, length = 11)
+    private String documentNumber;
+
+    @Column(name = "phone_number", nullable = false, length = 15)
+    private String phoneNumber;
+
+    @Column(name = "active", nullable = false)
+    private Boolean active;
 
     @PrePersist
     @PreUpdate
     public void processarCpf() {
-        this.cpf = CpfUtil.removeMask(this.cpf);
+        this.documentNumber = CpfUtil.removeMask(this.documentNumber);
     }
 
 }

@@ -1,17 +1,20 @@
 package br.com.juhmaran.customer.api.services;
 
+import br.com.juhmaran.customer.api.domain.dtos.CustomerRequest;
+import br.com.juhmaran.customer.api.domain.dtos.CustomerResponse;
+import org.springframework.data.domain.Page;
+
 public interface CustomerService {
 
-    // Cadastrar Customer
+    CustomerResponse registerCustomer(CustomerRequest customerRequest);
 
-    // Atualizar Customer
+    CustomerResponse updateCustomer(Long id, CustomerRequest customerRequest);
 
-    // Deletar Customer
+    void deleteCustomer(Long id);
 
-    // Listar Customers
+    Page<CustomerResponse> listCustomers(String fullName, String email, String phoneNumber, String documentNumber, Boolean active,
+                                         String sortBy, String sortDirection, int page, int size);
 
-    // Buscar Customer por ID
-
-    // Buscar Customer por Nome, Email, Telefone, CPF, CNPJ
+    CustomerResponse getCustomerById(Long id);
 
 }
