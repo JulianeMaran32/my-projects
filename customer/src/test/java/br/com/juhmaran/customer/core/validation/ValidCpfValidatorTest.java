@@ -11,31 +11,32 @@ class ValidCpfValidatorTest {
     private final ValidCpfValidator validator = new ValidCpfValidator();
 
     @Test
-    void deveRetornarFalsoParaCpfNulo() {
+    @DisplayName("Should return false for null CPF")
+    void shouldReturnFalseForNullCpf() {
         boolean resultado = validator.isValid(null, Mockito.mock(ConstraintValidatorContext.class));
         Assertions.assertFalse(resultado);
     }
 
     @Test
-    @DisplayName("Deve retornar falso para CPF vazio")
-    void deveRetornarFalsoParaCpfInvalido() {
-        String cpfInvalido = "12345678900"; // CPF inválido
+    @DisplayName("Should return false for empty CPF")
+    void shouldReturnFalseForInvalidCpf() {
+        String cpfInvalido = "12345678900";
         boolean resultado = validator.isValid(cpfInvalido, Mockito.mock(ConstraintValidatorContext.class));
         Assertions.assertFalse(resultado);
     }
 
     @Test
-    @DisplayName("Deve retornar verdadeiro para CPF válido sem máscara")
-    void deveRetornarVerdadeiroParaCpfValidoSemMascara() {
-        String cpfValido = "12345678909"; // CPF válido
+    @DisplayName("Should return true for valid CPF without mask")
+    void shouldReturnTrueForValidCpfWithoutMask() {
+        String cpfValido = "12345678909";
         boolean resultado = validator.isValid(cpfValido, Mockito.mock(ConstraintValidatorContext.class));
         Assertions.assertTrue(resultado);
     }
 
     @Test
-    @DisplayName("Deve retornar verdadeiro para CPF válido com máscara")
-    void deveRetornarVerdadeiroParaCpfValidoComMascara() {
-        String cpfValidoComMascara = "123.456.789-09"; // CPF válido com máscara
+    @DisplayName("Should return true for valid CPF with mask")
+    void shouldReturnTrueForValidCpfWithMask() {
+        String cpfValidoComMascara = "123.456.789-09";
         boolean resultado = validator.isValid(cpfValidoComMascara, Mockito.mock(ConstraintValidatorContext.class));
         Assertions.assertTrue(resultado);
     }

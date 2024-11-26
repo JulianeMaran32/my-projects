@@ -7,24 +7,23 @@ import org.junit.jupiter.api.Test;
 public class CpfUtilTest {
 
     @Test
-    @DisplayName("Deve adicionar máscara ao CPF")
-    void deveRemoverMascaraDoCpf() {
+    @DisplayName("Should remove mask from CPF")
+    void shouldRemoveMaskFromCpf() {
         String cpfComMascara = "123.456.789-00";
         String cpfSemMascara = CpfUtil.removeMask(cpfComMascara);
         Assertions.assertEquals("12345678900", cpfSemMascara);
     }
 
     @Test
-    @DisplayName("Deve retornar nulo quando CPF for nulo")
-    void deveRetornarNuloQuandoCpfForNulo() {
-        String cpfNulo = null;
-        String resultado = CpfUtil.removeMask(cpfNulo);
+    @DisplayName("Should return null when CPF is null")
+    void shouldReturnNullWhenCpfIsNull() {
+        String resultado = CpfUtil.removeMask(null);
         Assertions.assertNull(resultado);
     }
 
     @Test
-    @DisplayName("Deve retornar string vazia para CPF vazio")
-    void deveRetornarStringVaziaParaCpfVazio() {
+    @DisplayName("Should return empty string for empty CPF")
+    void shouldReturnEmptyStringForEmptyCpf() {
         String cpfVazio = "";
         String resultado = CpfUtil.removeMask(cpfVazio);
         Assertions.assertEquals("", resultado);

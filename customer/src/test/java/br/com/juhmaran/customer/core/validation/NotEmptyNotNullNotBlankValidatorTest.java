@@ -11,23 +11,23 @@ class NotEmptyNotNullNotBlankValidatorTest {
     private final NotEmptyNotNullNotBlankValidator validator = new NotEmptyNotNullNotBlankValidator();
 
     @Test
-    @DisplayName("Deve retornar falso para valor nulo")
-    void deveRetornarFalsoParaValorNulo() {
+    @DisplayName("Should return false for null value")
+    void shouldReturnFalseForNullValue() {
         boolean resultado = validator.isValid(null, Mockito.mock(ConstraintValidatorContext.class));
         Assertions.assertFalse(resultado);
     }
 
     @Test
-    @DisplayName("Deve retornar falso para valor em branco")
-    void deveRetornarFalsoParaValorEmBranco() {
+    @DisplayName("Should return false for blank value")
+    void shouldReturnFalseForBlankValue() {
         boolean resultado = validator.isValid("   ", Mockito.mock(ConstraintValidatorContext.class));
         Assertions.assertFalse(resultado);
     }
 
     @Test
-    @DisplayName("Deve retornar verdadeiro para valor válido")
-    void deveRetornarVerdadeiroParaValorValido() {
-        boolean resultado = validator.isValid("Texto válido", Mockito.mock(ConstraintValidatorContext.class));
+    @DisplayName("Should return true for valid value")
+    void shouldReturnTrueForValidValue() {
+        boolean resultado = validator.isValid("Valid text", Mockito.mock(ConstraintValidatorContext.class));
         Assertions.assertTrue(resultado);
     }
 
