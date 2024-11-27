@@ -28,15 +28,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/address")
 @RequiredArgsConstructor
-@Tag(name = "Address", description = "Endpoints para gerenciamento de endereços")
 @CrossOrigin(origins = "*")
+@Tag(name = "Address", description = "Endpoints para gerenciamento de endereços")
 public class AddressController {
 
     private final ViaCepService viaCepService;
     private final AddressService addressService;
 
     @Operation(summary = "Cadastrar um novo endereço", description = "Cadastrar um novo Endereço",
-            tags = {"Address"}, responses = {
+            operationId = "createAddress", tags = {"Address"}, responses = {
             @ApiResponse(responseCode = "201", description = "Endereço criado com sucesso", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = AddressResponse.class))}),
             @ApiResponse(responseCode = "400", description = "Requisição inválida", content = {
