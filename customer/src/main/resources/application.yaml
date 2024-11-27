@@ -82,7 +82,7 @@ logging:
   level:
     root: DEBUG
     org.springframework.web: DEBUG
-    br.com.juhmaran.address: DEBUG
+    br.com.juhmaran.customer: DEBUG
   pattern:
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
